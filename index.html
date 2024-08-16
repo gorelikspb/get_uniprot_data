@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Protein Information Viewer</h1>
+    <p>Select a protein by entering its number:</p>
+    <select id="proteinSelect">
+        <option value="P12345">1: Aspartate aminotransferase, mitochondrial (Rabbit)</option>
+        <option value="P69905">2: Hemoglobin subunit alpha (Human)</option>
+        <option value="P68871">3: Hemoglobin subunit beta (Human)</option>
+        <option value="P00734">4: Prothrombin (Human)</option>
+        <option value="P02647">5: Apolipoprotein A-I (Human)</option>
+        <option value="P0DTC2">6: Surface glycoprotein (SARS-CoV-2)</option>
+    </select>
+    <button onclick="fetchProteinData()">Get Protein Info</button>
+
+    <div id="proteinInfo"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
