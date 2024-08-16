@@ -1,48 +1,28 @@
-async function fetchProteinData() {
-    const proteinSelect = document.getElementById("proteinSelect");
-    const accessionNumber = proteinSelect.value;
-
-    try {
-        const response = await fetch(`https://rest.uniprot.org/uniprotkb/${accessionNumber}.txt`);
-        if (!response.ok) {
-            throw new Error(`Error fetching data for ${accessionNumber}: ${response.statusText}`);
-        }
-
-        const data = await response.text();
-        displayProteinInfo(data);
-    } catch (error) {
-        console.error(error);
-        document.getElementById("proteinInfo").innerText = `Failed to fetch data: ${error.message}`;
+document.getElementById('fetch-button').addEventListener('click', function() {
+    // Get the selected ID from the dropdown
+    const selectedId = document.getElementById('id-selection').value;
+    
+    // Get the custom ID from the input field
+    const customId = document.getElementById('custom-id').value.trim();
+    
+    // Determine which ID to use
+    const idToFetch = selectedId || customId;
+    
+    // If no ID is provided, show an alert
+    if (!idToFetch) {
+        alert('Please select or enter a UniProt ID.');
+        return;
     }
-}
-
-function displayProteinInfo(data) {
-    const lines = data.split("\n");
-    let proteinInfo = {
-        id: null,
-        names: [],
-        geneName: null,
-        organism: null
-    };
-
-    lines.forEach(line => {
-        if (line.startsWith("ID")) {
-            proteinInfo.id = line.split(" ")[1];
-        } else if (line.startsWith("DE")) {
-            proteinInfo.names.push(line.slice(5));
-        } else if (line.startsWith("GN")) {
-            proteinInfo.geneName = line.split("=")[1].split(";")[0];
-        } else if (line.startsWith("OS")) {
-            proteinInfo.organism = line.slice(5);
-        }
-    });
-
-    const proteinInfoDiv = document.getElementById("proteinInfo");
-    proteinInfoDiv.innerHTML = `
-        <h2>Protein ID: ${proteinInfo.id}</h2>
-        <h3>Protein Names:</h3>
-        <ul>${proteinInfo.names.map(name => `<li>${name}</li>`).join('')}</ul>
-        <p><strong>Gene Name:</strong> ${proteinInfo.geneName}</p>
-        <p><strong>Organism:</strong> ${proteinInfo.organism}</p>
-    `;
-}
+    
+    // Fetch data from UniProt
+    fetch(`https://rest.uniprot.org/uniprotkb/${idToFetch}.txt`)
+        .then(response => response.text())
+        .then(data => {
+            // Display the fetched data
+            document.getElementById('protein-data').textContent = data;
+        })
+        .catch(error => {
+            // Handle errors
+            document.getElementById('protein-data').textContent = 'Error fetching data. Please check the UniProt ID and try again.';
+        });
+});
