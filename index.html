@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Information</title>
+    <title>UniProt Data Fetcher</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Protein Information Viewer</h1>
-    <p>Select a protein by entering its number:</p>
-    <select id="proteinSelect">
-        <option value="P12345">1: Aspartate aminotransferase, mitochondrial (Rabbit)</option>
-        <option value="P69905">2: Hemoglobin subunit alpha (Human)</option>
-        <option value="P68871">3: Hemoglobin subunit beta (Human)</option>
-        <option value="P00734">4: Prothrombin (Human)</option>
-        <option value="P02647">5: Apolipoprotein A-I (Human)</option>
-        <option value="P0DTC2">6: Surface glycoprotein (SARS-CoV-2)</option>
+    <h1>UniProt Data Fetcher</h1>
+    
+    <label for="id-selection">Select a UniProt ID:</label>
+    <select id="id-selection">
+        <option value="">Select an ID</option>
+        <option value="P12345">1. P12345 - Aspartate aminotransferase</option>
+        <option value="Q9Y6Q8">2. Q9Y6Q8 - Beta-galactosidase</option>
+        <option value="P00734">3. P00734 - Trypsin</option>
+        <option value="P00742">4. P00742 - Chymotrypsin</option>
+        <option value="P01009">5. P01009 - Pepsin</option>
     </select>
-    <button onclick="fetchProteinData()">Get Protein Info</button>
+    
+    <p>or enter a UniProt ID:</p>
+    <input type="text" id="custom-id" placeholder="Enter UniProt ID">
 
-    <div id="proteinInfo"></div>
+    <button id="fetch-button">Fetch Data</button>
+
+    <div id="result">
+        <pre id="protein-data"></pre>
+    </div>
 
     <script src="script.js"></script>
 </body>
